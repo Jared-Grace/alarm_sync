@@ -1,0 +1,55 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Local configuration
+local.properties
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+*.hprof
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Kotlin/Java
+*.class
+*.jar
+
+# Logs
+*.log
+
+# Navigation safe args (if used)
+generated/
+
+# Firebase / services (if any local files)
+google-services.json.bak
+
+# Keystore files (IMPORTANT: never commit keys)
+*.jks
+*.keystore
+
+# CMake / native builds (if used)
+.externalNativeBuild/
+.cxx/
