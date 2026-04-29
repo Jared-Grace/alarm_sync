@@ -37,15 +37,18 @@ class MainActivity : ComponentActivity() {
                         url = it
                         vm.setUrl(it)
                     },
-                    label = { Text("JSON URL") },
-                    modifier = Modifier.fillMaxWidth()
+                    label = { Text("JSON URL", style = MaterialTheme.typography.titleLarge) },
+                    modifier = Modifier.fillMaxWidth(),
+                            textStyle = MaterialTheme.typography.titleLarge,
                 )
 
                 Spacer(Modifier.height(8.dp))
 
                 Button(onClick = { vm.syncNow(this@MainActivity) }) {
-                    Text("Sync Now")
+                    Text("Sync Now", style = MaterialTheme.typography.titleLarge)
                 }
+
+                Spacer(Modifier.height(8.dp))
                 Button(onClick = {
 
                     val testAlarm = AlarmEntity(
@@ -58,14 +61,14 @@ class MainActivity : ComponentActivity() {
                     AlarmScheduler.schedule(this@MainActivity, testAlarm)
 
                 }){
-                    Text("Test alarm 5 seconds from now")
+                    Text("Test alarm 5 seconds from now", style = MaterialTheme.typography.titleLarge)
                 }
 
                 Spacer(Modifier.height(16.dp))
 
                 LazyColumn {
                     items(alarms) {
-                        Text("${it.text} - ${it.dateTime}")
+                        Text("${it.text} - ${it.dateTime}", style = MaterialTheme.typography.titleLarge)
                     }
                 }
             }

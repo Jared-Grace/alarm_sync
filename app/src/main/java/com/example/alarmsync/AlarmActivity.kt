@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.ui.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import com.example.alarmsync.ui.theme.AlarmSyncTheme
 
 class AlarmActivity : ComponentActivity() {
     private var mediaPlayer: android.media.MediaPlayer? = null
@@ -21,56 +22,58 @@ class AlarmActivity : ComponentActivity() {
         val text = intent.getStringExtra("text") ?: "Alarm"
 
         setContent {
-            Column {
-                Text(text)
-                Button(onClick = {
-                    mediaPlayer?.stop()
-                    mediaPlayer?.release()
-                    mediaPlayer = null
-                    finish()
-                }) {
-                    Text("Dismiss")
-                }
-                Button(onClick = {
+            AlarmSyncTheme {
+                Column {
+                    Text(text, style = MaterialTheme.typography.titleLarge)
+                    Button(onClick = {
+                        mediaPlayer?.stop()
+                        mediaPlayer?.release()
+                        mediaPlayer = null
+                        finish()
+                    }) {
+                        Text("Dismiss", style = MaterialTheme.typography.titleLarge)
+                    }
+                    Button(onClick = {
 
-                    mediaPlayer?.stop()
-                    mediaPlayer?.release()
-                    mediaPlayer = null
+                        mediaPlayer?.stop()
+                        mediaPlayer?.release()
+                        mediaPlayer = null
 
-                    val snoozedTime = System.currentTimeMillis() + 10 * 1000 // 5 min
+                        val snoozedTime = System.currentTimeMillis() + 10 * 1000 // 5 min
 
-                    val snoozedAlarm = AlarmEntity(
-                        id = 0,
-                        text = "Snoozed: $text",
-                        dateTime = snoozedTime,
-                        requestCode = (Math.random() * 100000).toInt()
-                    )
+                        val snoozedAlarm = AlarmEntity(
+                            id = 0,
+                            text = "Snoozed: $text",
+                            dateTime = snoozedTime,
+                            requestCode = (Math.random() * 100000).toInt()
+                        )
 
-                    AlarmScheduler.schedule(this@AlarmActivity, snoozedAlarm)
+                        AlarmScheduler.schedule(this@AlarmActivity, snoozedAlarm)
 
-                    finish()
+                        finish()
 
-                }) {
-                    Text("Snooze")
+                    }) {
+                        Text("Snooze", style = MaterialTheme.typography.titleLarge)
+                    }
                 }
             }
-        }
 
-        val alarmUri = android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
+            val alarmUri = android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
 
-        mediaPlayer = android.media.MediaPlayer().apply {
-            setDataSource(this@AlarmActivity, alarmUri)
+            mediaPlayer = android.media.MediaPlayer().apply {
+                setDataSource(this@AlarmActivity, alarmUri)
 
-            setAudioAttributes(
-                android.media.AudioAttributes.Builder()
-                    .setUsage(android.media.AudioAttributes.USAGE_ALARM)
-                    .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build()
-            )
+                setAudioAttributes(
+                    android.media.AudioAttributes.Builder()
+                        .setUsage(android.media.AudioAttributes.USAGE_ALARM)
+                        .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .build()
+                )
 
-            isLooping = true
-            prepare()
-            start()
+                isLooping = true
+                prepare()
+                start()
+            }
         }
     }
 }
